@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Portfolio</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+  <header class="header">
+    <a href="#" class="logo">GEOFFREY</a>
+    <nav class="navbar">
+      <a href="#" id="home-link">Home</a>
+      <a href="#services" id="services-link">Services</a>
+      <a href="#contact" id="contact-link">Contact</a>
+    </nav>
+  </header>
+  
+  <main>
+    <section class="home" id="home">
+      <div class="home-content">
+        <h1 class="animated-text">Hi, I am Geoffrey Mungai Wahome</h1>
+        <h3>Frontend Developer</h3>
+        <h3>Backend Developer</h3>
+        <div class="btn-box">
+          <a href="#" id="hire-me">Hire me</a>
+          <a href="#">Let's talk</a>
+        </div>
+      </div>
+      <div class="home-img">
+        <img src="home.jpg" alt="Profile Image" class="image-hover-effect">
+      </div>
+      <div class="home-sci">
+        <a href="https://www.facebook.com/profile.php?id=100094275720884" target="_blank"><i class='bx bxl-facebook'></i></a>
+        <a href="https://t.me/yourusername" target="_blank"><i class='bx bxl-telegram'></i></a>
+        <a href="#"><i class='bx bxl-linkedin'></i></a>
+      </div>
+    </section>
+
+    <section id="services" class="hidden">
+      <h1>My Skills</h1>
+      <div class="skills-container">
+        <div class="skill">
+          <div class="circular-progress" data-progress="85">
+            <span class="progress-value">0%</span>
+          </div>
+          <h2>HTML</h2>
+        </div>
+        <div class="skill">
+          <div class="circular-progress" data-progress="91">
+            <span class="progress-value">0%</span>
+          </div>
+          <h2>CSS</h2>
+        </div>
+        <div class="skill">
+          <div class="circular-progress" data-progress="68">
+            <span class="progress-value">0%</span>
+          </div>
+          <h2>JavaScript</h2>
+        </div>
+        <div class="skill">
+          <div class="circular-progress" data-progress="88">
+            <span class="progress-value">0%</span>
+          </div>
+          <h2>Python</h2>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="hidden">
+      <h1>Contact Me</h1>
+      <p>Phone: 0741072307</p>
+      <p>Email: geoffreymungai222@gmail.com</p>
+    </section>
+  </main>
+
+  <script>
+    // Function to show a section and hide others
+    function showSection(sectionId) {
+      document.querySelectorAll('section').forEach(section => {
+        section.classList.add('hidden');
+      });
+      document.getElementById(sectionId).classList.remove('hidden');
+
+      // Animate circular progress bars when the services section is shown
+      if (sectionId === 'services') {
+        animateCircularProgressBars();
+      }
+    }
+
+    // Function to animate circular progress bars
+    function animateCircularProgressBars() {
+      const progressBars = document.querySelectorAll('.circular-progress');
+      progressBars.forEach(bar => {
+        const progress = bar.getAttribute('data-progress');
+        const progressValue = bar.querySelector('.progress-value');
+        let startValue = 0;
+        const endValue = parseInt(progress);
+        const speed = 20; // Animation speed in milliseconds
+
+        const progressAnimation = setInterval(() => {
+          startValue++;
+          progressValue.textContent = `${startValue}%`;
+          bar.style.background = `conic-gradient(#00abf0 ${startValue * 3.6}deg, #081b29 0deg)`;
+
+          if (startValue === endValue) {
+            clearInterval(progressAnimation);
+          }
+        }, speed);
+      });
+    }
+
+    // Add click event to "Hire Me" button
+    document.getElementById('hire-me').addEventListener('click', function(event) {
+      event.preventDefault();
+      this.textContent = 'Hired! ✔️';
+      this.style.backgroundColor = '#4CAF50'; // Green color for success
+      this.style.pointerEvents = 'none'; // Disable further clicks
+    });
+
+    // Add click events to navigation links
+    document.getElementById("services-link").addEventListener("click", function(event) {
+      event.preventDefault();
+      showSection("services");
+    });
+
+    document.getElementById("contact-link").addEventListener("click", function(event) {
+      event.preventDefault();
+      showSection("contact");
+    });
+
+    document.getElementById("home-link").addEventListener("click", function(event) {
+      event.preventDefault();
+      showSection("home");
+    });
+
+    // Ensure home section is visible on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      showSection('home');
+    });
+  </script>
+</body>
+</html>
